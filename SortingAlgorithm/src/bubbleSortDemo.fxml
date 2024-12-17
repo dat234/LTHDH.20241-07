@@ -4,6 +4,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.text.TextFlow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -36,7 +37,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="ArrayDemo" layoutX="97.0" layoutY="287.0" prefHeight="40.0" prefWidth="402.0" />
+      <TextFlow fx:id="ArrayDemo" layoutX="55.0" layoutY="286.0" prefHeight="48.0" prefWidth="486.0" textAlignment="CENTER" style="-fx-font-size: 20px;" />
       <Button fx:id="OKbtn" layoutX="279.0" layoutY="354.0" mnemonicParsing="false" onAction="#Steps" text="OK">
          <font>
             <Font size="15.0" />

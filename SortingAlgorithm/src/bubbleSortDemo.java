@@ -8,6 +8,10 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import java.util.Optional;
 import java.util.Random;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
+import javafx.scene.paint.Color;
+
 
 public class bubbleSortDemo {
 
@@ -15,7 +19,7 @@ public class bubbleSortDemo {
     private TextField Array;
 
     @FXML
-    private TextField ArrayDemo;
+    private TextFlow ArrayDemo;    
 
     @FXML
     private Button OKbtn;
@@ -79,6 +83,25 @@ public class bubbleSortDemo {
         }
     }
 
+    private void updateTextFlowWithHighlight(int[] array, int index1, int index2) {
+        ArrayDemo.getChildren().clear(); // Xóa nội dung cũ
+    
+        for (int i = 0; i < array.length; i++) {
+            Text text = new Text(String.valueOf(array[i]) + " "); // Tạo text cho từng phần tử
+    
+            // Highlight các phần tử tại index1 và index2
+            if (i == index1 || i == index2) {
+                text.setFill(Color.RED); // Đổi màu thành đỏ
+                text.setStyle("-fx-font-weight: bold;"); // In đậm
+            } else {
+                text.setFill(Color.BLACK); // Phần tử khác có màu đen
+            }
+    
+            ArrayDemo.getChildren().add(text); // Thêm vào TextFlow
+        }
+    }
+    
+
     @FXML
     void Steps(ActionEvent event) {
         if (array == null || array.length == 0) {
@@ -93,13 +116,15 @@ public class bubbleSortDemo {
         Thread sortingThread = new Thread(() -> {
             try {
                 for (int i = 0; i < bubbleSort.getSteps().size(); i++) {
-                    final int stepIndex = i;
+                    final int[] currentStep = bubbleSort.getSteps().get(i);
+                    final int index1 = bubbleSort.getIndex1AtStep(i); // Lấy index1 (phần tử đang xét)
+                    final int index2 = bubbleSort.getIndex2AtStep(i); // Lấy index2 (phần tử đang xét)
 
                     javafx.application.Platform.runLater(() -> {
-                        ArrayDemo.setText(arrayToString(bubbleSort.getSteps().get(stepIndex)));
+                        updateTextFlowWithHighlight(currentStep, index1, index2);
                     });
 
-                    Thread.sleep(750);
+                    Thread.sleep(750); // Tạm dừng 750ms giữa các bước
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -111,6 +136,7 @@ public class bubbleSortDemo {
         sortingThread.setDaemon(true);
         sortingThread.start();
     }
+
 
     @FXML
     private void goBackToMainMenu(ActionEvent event) {
