@@ -76,18 +76,23 @@ public class insertionSortDemo {
             int size;
             if (RandomBox.isSelected()) {
                 size = Integer.parseInt(SoPhanTu.getText());
+                array = new int[size]; // Tạo mảng mới
+                Random random = new Random();
+
+                for (int i = 0; i < size; i++) {
+                array[i] = random.nextInt(100); 
+                }
             } else {
                 String input = Array.getText();
                 String[] inputArray = input.split(" ");
                 size = inputArray.length;
+                array = new int[size];
+                for (int i = 0; i < size; i++) {
+                array[i] = Integer.parseInt(inputArray[i]); 
+                }
             }
 
-            array = new int[size]; // Tạo mảng mới
-            Random random = new Random();
-
-            for (int i = 0; i < size; i++) {
-                array[i] = random.nextInt(100); 
-            }
+            
 
             Array.setText(arrayToString(array)); // Gán mảng mới vào TextField
         } catch (NumberFormatException e) {
@@ -181,9 +186,11 @@ public class insertionSortDemo {
         ArrayDemo.getChildren().clear(); // Xóa tất cả các phần tử hiện có trước khi thêm mới
     
         for (int i = 0; i < array.length; i++) {
+            sb.append(array[i]).append(" ");
             Text textElement = new Text(array[i] + " ");
             ArrayDemo.getChildren().add(textElement);
         }
+    
         return sb.toString();
     }    
     
