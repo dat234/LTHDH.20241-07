@@ -6,3 +6,5 @@ Xin chào cô và các bạn nhóm em là nhóm 7 với các thành viên :
 -Trần Hoàng Dũng 20225708
 -Phạm Minh Đức 20194517
 Rất mong nhận được sự giúp đỡ của cô và các bạn.
+
+Link video: https://drive.google.com/file/d/1rV1bV34wwYT-DG2BVFWCdBfZtpKmZ0LV/view?usp=sharing
