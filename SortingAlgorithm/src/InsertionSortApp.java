@@ -14,7 +14,7 @@ public class InsertionSortApp extends Application {
         mainStage = primaryStage;
 
         // Tải giao diện từ tệp FXML (Khởi động ứng dụng với mainMenu.fxml)
-        Parent root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("insertionSortDemo.fxml"));
 
         // Đặt tiêu đề cho cửa sổ
         primaryStage.setTitle("Sorting Algorithms");

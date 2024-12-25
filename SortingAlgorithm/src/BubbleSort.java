@@ -5,7 +5,7 @@ public class BubbleSort implements SortingAlgorithm {
     private List<int[]> steps = new ArrayList<>();
     private List<Integer> index1Steps = new ArrayList<>();
     private List<Integer> index2Steps = new ArrayList<>();
-
+    
     @Override
     public void sort(int[] array) {
         steps.clear();

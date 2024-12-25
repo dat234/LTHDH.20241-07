@@ -16,9 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class insertionSortDemo {
-
+    private final Object lock = new Object();
+    private boolean stepByStep = false;
     @FXML
     private TextField Array;
+
+    @FXML
+    private Button nextStep;
 
     @FXML
     private TextFlow ArrayDemo;
@@ -76,17 +80,19 @@ public class insertionSortDemo {
             int size;
             if (RandomBox.isSelected()) {
                 size = Integer.parseInt(SoPhanTu.getText());
+                array = new int[size]; // Tạo mảng mới
+                Random random = new Random();
+                for (int i = 0; i < size; i++) {
+                array[i] = random.nextInt(100); 
+                }
             } else {
                 String input = Array.getText();
                 String[] inputArray = input.split(" ");
                 size = inputArray.length;
-            }
-
-            array = new int[size]; // Tạo mảng mới
-            Random random = new Random();
-
-            for (int i = 0; i < size; i++) {
-                array[i] = random.nextInt(100); 
+                array = new int[size];
+                for (int i = 0; i < size; i++) {
+                array[i] = Integer.parseInt(inputArray[i]); 
+                }
             }
 
             Array.setText(arrayToString(array)); // Gán mảng mới vào TextField
@@ -101,28 +107,34 @@ public class insertionSortDemo {
             showAlert("Lỗi", "Vui lòng tạo mảng ngẫu nhiên hoặc nhập mảng thủ công trước.");
             return;
         }
-    
+
         if (isProgramRunning) {
             showAlert("Lỗi", "Vui lòng chờ quá trình sắp xếp hoàn tất trước khi thực hiện lại.");
             return;
         }
-    
+
         isProgramRunning = true; // Đặt trạng thái chương trình đang chạy
-    
+
         insertionSort.sort(array);
-    
+
         Thread sortingThread = new Thread(() -> {
             try {
                 for (int i = 0; i < insertionSort.getSteps().size(); i++) {
                     final int stepIndex = i;
                     final List<Integer> highlightedIndices = insertionSort.getHighlightedIndices().get(stepIndex);
-    
+
                     javafx.application.Platform.runLater(() -> {
                         ArrayDemo.getChildren().clear(); // Xóa các phần tử cũ trước khi thêm mới
                         ArrayDemo.getChildren().addAll(convertToTextNodes(insertionSort.getSteps().get(stepIndex), highlightedIndices));
                     });
-    
-                    Thread.sleep(750);
+
+                    synchronized (lock) {
+                        if (stepByStep) {
+                            lock.wait(); // Wait for the next step
+                        } else {
+                            Thread.sleep(750); // Default delay
+                        }
+                    }
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -130,11 +142,31 @@ public class insertionSortDemo {
                 isProgramRunning = false; // Đặt lại trạng thái khi hoàn tất
             }
         });
-    
+
+        
         sortingThread.setDaemon(true);
         sortingThread.start();
     }
     
+    @FXML
+    void nextStep(ActionEvent event) {
+        synchronized (lock) {
+            lock.notify(); // Notify the sorting thread to proceed to the next step
+        }
+    }
+
+    @FXML
+    void toggleStepByStep(ActionEvent event) {
+        stepByStep = !stepByStep; // Toggle step-by-step mode
+        if (stepByStep) {
+            nextStep.setDisable(false);
+        } else {
+            nextStep.setDisable(true);
+            synchronized (lock) {
+                lock.notify(); // Notify the sorting thread to proceed if step-by-step mode is turned off
+            }
+        }
+    }
 
     private List<Text> convertToTextNodes(int[] array, List<Integer> highlightedIndices) {
         List<Text> textNodes = new ArrayList<>();
@@ -181,9 +213,11 @@ public class insertionSortDemo {
         ArrayDemo.getChildren().clear(); // Xóa tất cả các phần tử hiện có trước khi thêm mới
     
         for (int i = 0; i < array.length; i++) {
+            sb.append(array[i]).append(" ");
             Text textElement = new Text(array[i] + " ");
             ArrayDemo.getChildren().add(textElement);
         }
+    
         return sb.toString();
     }    
     

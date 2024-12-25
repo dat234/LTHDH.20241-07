@@ -43,7 +43,7 @@ public class bubbleSortDemo {
     public bubbleSortDemo() {
         bubbleSort = new BubbleSort(); // Khởi tạo đối tượng BubbleSort
     }
-
+    
     // Xử lý khi người dùng tick vào CheckBox Random
     @FXML
     void TickRandom(ActionEvent event) {
@@ -104,6 +104,11 @@ public class bubbleSortDemo {
 
     @FXML
     void Steps(ActionEvent event) {
+        if (isProgramRunning) {
+            // Nếu chương trình đang chạy, hiển thị thông báo
+            showAlert("Error", "Please wait for the current sorting process to finish.");
+            return;
+        }
         if (array == null || array.length == 0) {
             showAlert("Error", "Please generate a random array or enter an array manually first.");
             return;

@@ -87,6 +87,11 @@ public class quickSortDemo {
 
     @FXML
     void Steps(ActionEvent event) {
+        if (isProgramRunning) {
+            // Nếu chương trình đang chạy, hiển thị thông báo
+            showAlert("Error", "Please wait for the current sorting process to finish.");
+            return;
+        }
         if (array == null || array.length == 0) {
             showAlert("Error", "Please generate a random array or enter an array manually first.");
             return;
