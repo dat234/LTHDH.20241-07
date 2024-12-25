@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.simulation.controller.MainMenuController">
+   <Text layoutX="353.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mô phỏng thuật toán sắp xếp">
+      <font>
+         <Font size="50.0" />
+      </font>
+   </Text>
+   <Button layoutX="257.0" layoutY="450.0" mnemonicParsing="false" onAction="#bubbleSortRedirect" prefHeight="93.0" prefWidth="204.0" text="Sắp xếp nổi bọt (Bubble sort)" />
+   <Button layoutX="580.0" layoutY="450.0" mnemonicParsing="false" onAction="#quickSortRedirect" prefHeight="93.0" prefWidth="204.0" text="Sắp xếp nhanh (Quick Sort)" />
+   <Button layoutX="904.0" layoutY="450.0" mnemonicParsing="false" onAction="#insertionSortRedirect" prefHeight="93.0" prefWidth="204.0" text="Sắp xếp chèn (Insertion Sort)" />
+   <Text layoutX="426.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hãy chọn một trong các thuật toán sắp xếp sau đây...">
+      <font>
+         <Font size="22.0" />
+      </font>
+   </Text>
+   <Button layoutX="1291.0" layoutY="14.0" mnemonicParsing="false" onAction="#displayHelp" text="Trợ giúp" />
+   <Button layoutX="1194.0" layoutY="14.0" mnemonicParsing="false" onAction="#displayAboutUs" text="Về chúng tôi" />
+</AnchorPane>

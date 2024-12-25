@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.simulation.controller.QuickSortController">
+    <Text layoutX="563.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quick Sort">
+        <font>
+          <Font size="52.0" />
+        </font>
+    </Text>
+    <TextField fx:id="inputTextField" layoutX="61.0" layoutY="209.0" prefHeight="51.0" prefWidth="731.0" promptText="Ex: 1 2 3 4 5">
+        <font>
+          <Font size="24.0" />
+        </font>
+    </TextField>
+    <Text layoutX="61.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mảng đầu vào:">
+        <font>
+          <Font size="24.0" />
+        </font>
+    </Text>
+    <Button layoutX="615.0" layoutY="261.0" mnemonicParsing="false" onAction="#createRandomArray" text="Tạo mảng ngẫu nhiên">
+        <font>
+          <Font size="16.0" />
+        </font>
+    </Button>
+    <TextField fx:id="sizeTextField" layoutX="520.0" layoutY="261.0" prefHeight="35.0" prefWidth="95.0" promptText="Kích thước">
+        <font>
+          <Font size="16.0" />
+        </font>
+    </TextField>
+    <Button layoutX="949.0" layoutY="583.0" mnemonicParsing="false" onAction="#beginSort" prefHeight="44.0" prefWidth="177.0" text="Bắt đầu sắp xếp">
+        <font>
+          <Font size="20.0" />
+        </font>
+    </Button>
+    <Text layoutX="61.0" layoutY="424.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mảng đầu ra:">
+        <font>
+          <Font size="24.0" />
+        </font>
+    </Text>
+    <CheckBox fx:id="descendingBox" layoutX="949.0" layoutY="192.0" mnemonicParsing="false" text="Sắp xếp theo thứ tự giảm dần">
+        <font>
+          <Font size="24.0" />
+        </font>
+    </CheckBox>
+    <TextField fx:id="delayTextField" layoutX="1073.0" layoutY="243.0" prefHeight="35.0" prefWidth="232.0" promptText="Mặc định: 500">
+        <font>
+          <Font size="16.0" />
+        </font>
+    </TextField>
+    <Text layoutX="949.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delay (ms):">
+        <font>
+          <Font size="24.0" />
+        </font>
+    </Text>
+    <Text layoutX="949.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hoán đổi:">
+        <font>
+          <Font size="24.0" />
+        </font>
+    </Text>
+    <TextField fx:id="firstTextField" editable="false" layoutX="1062.0" layoutY="397.0" prefHeight="35.0" prefWidth="66.0">
+        <font>
+          <Font size="16.0" />
+        </font>
+    </TextField>
+    <Text layoutX="1134.0" layoutY="424.0" strokeType="OUTSIDE" strokeWidth="0.0" text="và">
+        <font>
+          <Font size="24.0" />
+        </font>
+    </Text>
+    <TextField fx:id="secondTextField" editable="false" layoutX="1164.0" layoutY="397.0" prefHeight="35.0" prefWidth="66.0">
+        <font>
+          <Font size="16.0" />
+        </font>
+    </TextField>
+    <Text layoutX="949.0" layoutY="491.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phần tử chốt:">
+        <font>
+          <Font size="24.0" />
+        </font>
+    </Text>
+    <TextField fx:id="pivotTextField" disable="true" layoutX="1095.0" layoutY="465.0" prefHeight="35.0" prefWidth="66.0">
+        <font>
+          <Font size="16.0" />
+        </font>
+    </TextField>
+    <TextField fx:id="minTextField" layoutX="422.0" layoutY="261.0" prefHeight="35.0" prefWidth="49.0" promptText="Min">
+        <font>
+          <Font size="16.0" />
+        </font>
+    </TextField>
+    <TextField fx:id="maxTextField" layoutX="471.0" layoutY="261.0" prefHeight="35.0" prefWidth="49.0" promptText="Max">
+        <font>
+          <Font size="16.0" />
+        </font>
+    </TextField>
+    <Button fx:id="returnBtn" layoutX="1293.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnOption" text="Quay lại" />
+   <TextArea fx:id="outputTextField" editable="false" layoutX="61.0" layoutY="445.0" prefHeight="276.0" prefWidth="731.0">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </TextArea>
+</AnchorPane>
