@@ -23,7 +23,7 @@ public class insertionSortDemo {
 
     @FXML
     private Button nextStep;
-    
+
     @FXML
     private TextFlow ArrayDemo;
 
@@ -160,9 +160,11 @@ public class insertionSortDemo {
         stepByStep = !stepByStep; // Toggle step-by-step mode
         if (stepByStep) {
             nextStep.setDisable(false);
-        }
-        else {
+        } else {
             nextStep.setDisable(true);
+            synchronized (lock) {
+                lock.notify(); // Notify the sorting thread to proceed if step-by-step mode is turned off
+            }
         }
     }
 
