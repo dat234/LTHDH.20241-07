@@ -16,10 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class insertionSortDemo {
-
+    private final Object lock = new Object();
+    private boolean stepByStep = false;
     @FXML
     private TextField Array;
 
+    @FXML
+    private Button nextStep;
+    
     @FXML
     private TextFlow ArrayDemo;
 
@@ -78,7 +82,6 @@ public class insertionSortDemo {
                 size = Integer.parseInt(SoPhanTu.getText());
                 array = new int[size]; // Tạo mảng mới
                 Random random = new Random();
-
                 for (int i = 0; i < size; i++) {
                 array[i] = random.nextInt(100); 
                 }
@@ -92,8 +95,6 @@ public class insertionSortDemo {
                 }
             }
 
-            
-
             Array.setText(arrayToString(array)); // Gán mảng mới vào TextField
         } catch (NumberFormatException e) {
             showAlert("Error", "Vui lòng nhập một số hợp lệ cho số phần tử hoặc giá trị mảng.");
@@ -106,28 +107,34 @@ public class insertionSortDemo {
             showAlert("Lỗi", "Vui lòng tạo mảng ngẫu nhiên hoặc nhập mảng thủ công trước.");
             return;
         }
-    
+
         if (isProgramRunning) {
             showAlert("Lỗi", "Vui lòng chờ quá trình sắp xếp hoàn tất trước khi thực hiện lại.");
             return;
         }
-    
+
         isProgramRunning = true; // Đặt trạng thái chương trình đang chạy
-    
+
         insertionSort.sort(array);
-    
+
         Thread sortingThread = new Thread(() -> {
             try {
                 for (int i = 0; i < insertionSort.getSteps().size(); i++) {
                     final int stepIndex = i;
                     final List<Integer> highlightedIndices = insertionSort.getHighlightedIndices().get(stepIndex);
-    
+
                     javafx.application.Platform.runLater(() -> {
                         ArrayDemo.getChildren().clear(); // Xóa các phần tử cũ trước khi thêm mới
                         ArrayDemo.getChildren().addAll(convertToTextNodes(insertionSort.getSteps().get(stepIndex), highlightedIndices));
                     });
-    
-                    Thread.sleep(750);
+
+                    synchronized (lock) {
+                        if (stepByStep) {
+                            lock.wait(); // Wait for the next step
+                        } else {
+                            Thread.sleep(750); // Default delay
+                        }
+                    }
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -135,11 +142,29 @@ public class insertionSortDemo {
                 isProgramRunning = false; // Đặt lại trạng thái khi hoàn tất
             }
         });
-    
+
+        
         sortingThread.setDaemon(true);
         sortingThread.start();
     }
     
+    @FXML
+    void nextStep(ActionEvent event) {
+        synchronized (lock) {
+            lock.notify(); // Notify the sorting thread to proceed to the next step
+        }
+    }
+
+    @FXML
+    void toggleStepByStep(ActionEvent event) {
+        stepByStep = !stepByStep; // Toggle step-by-step mode
+        if (stepByStep) {
+            nextStep.setDisable(false);
+        }
+        else {
+            nextStep.setDisable(true);
+        }
+    }
 
     private List<Text> convertToTextNodes(int[] array, List<Integer> highlightedIndices) {
         List<Text> textNodes = new ArrayList<>();
